@@ -10,42 +10,52 @@ namespace Week_1_Capstone
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to the Pig Latin Translator!");
-            Console.WriteLine("Enter a word to be translated");
-
-            string input = Console.ReadLine().ToLower();
-            int length = input.Length;
-            string[] results = input.Split(' ');
-            int res = results.Length - 1;
-
-            char[] vowel = { 'a', 'e', 'i', 'o', 'u' };
-            int t = 0;
-            foreach (string s in results)
+            bool again = true;
+            while (again == true)
             {
-                
-                char[] q = s.ToArray();
-                int x = s.IndexOfAny(vowel);
-                string p = s.Substring(0, x);
-                string rem = s.Substring(x, q.Length - x);
-                string[] combo = { rem + p };
-                Console.WriteLine(combo[t]);
-                t++;
-                //Console.Write("{0}{1}ay \n", rem, p);
+                Console.WriteLine("Welcome to the Pig Latin Translator!");
+                Console.WriteLine("Enter a word to be translated");
 
-               /* if (s.StartsWith("a") || s.StartsWith("e") || s.StartsWith("i") || s.StartsWith("o") || s.StartsWith("u"))
+                string input = Console.ReadLine();
+                int length = input.Length;
+                string[] results = input.Split(' ');
+                int res = results.Length - 1;
+
+                char[] vowel = { 'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U' };
+                foreach (string s in results)
                 {
-                    string v = s + "way";
-                    if (s.StartsWith("a") || s.StartsWith("e") || s.StartsWith("i") || s.StartsWith("o") || s.StartsWith("u"))
+                    char[] q = s.ToArray();
+                    int x = s.IndexOfAny(vowel);
+                    string p = s.Substring(0, x);
+                    string rem = s.Substring(x, q.Length - x);
+                    string combo = rem + p;
+                    string[] combined = combo.Split(' ');
+
+                    for (int n = 0; n < combined.Length; n++)
+                    {
+                        if (s.StartsWith("a") || s.StartsWith("e") || s.StartsWith("i") || s.StartsWith("o") || s.StartsWith("u") ||
+                            s.StartsWith("A") || s.StartsWith("E") || s.StartsWith("I") || s.StartsWith("O") || s.StartsWith("U"))
                         {
-                            Console.Write("{0}{1}ay \n", rem, p, v);
+                            int m = n;
+                            combined[m] = combined[m].Replace(combined[m], combined[m] + "way");
                         }
+                        else
+                        {
+                            int l = n;
+                            combined[l] = combined[l].Replace(combined[l], combined[l] + "ay");
+                        }
+                        Console.Write(combined[n] + " ");
+                    }
                 }
-                else
+                Console.Write("\nTranslate another line? (y/n): ");
+                string rep = Console.ReadLine().ToLower();
+                if (rep != "y")
                 {
-                    Console.Write("{0}{1}ay \n", rem, p);
-                }*/                
+                    Console.Clear();
+                    again = false;
+                }
             }
-            Console.WriteLine("Press any key to exit...");
+            Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
         }
     }
